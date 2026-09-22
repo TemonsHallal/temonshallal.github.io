@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio Saputra Dwi Sofyan - Dari infrastruktur fisik dan mekanik menuju dunia IT, pemrograman, dan jaringan komputer.">
+    <title>Saputra Dwi Sofyan | IT & Infrastruktur</title>
+    
+    <!-- Google Fonts: Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           CSS Variables & Theming
+           ========================================================================== */
+        :root {
+            --bg-color: #030303; 
+            --text-main: #F4F4F0; 
+            --text-muted: #9CA3AF;
+            --accent-gold: #C5A059; 
+            --accent-gold-glow: rgba(197, 160, 89, 0.4);
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --section-padding: 100px 0; 
+        }
+
+        /* ==========================================================================
+           Reset & Base Styles
+           ========================================================================== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            position: relative;
+        }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        
+        .container {
+            max-width: 1000px; 
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ==========================================================================
+           Dynamic Background (Glowing Orbs)
+           ========================================================================== */
+        .bg-glow-1, .bg-glow-2 {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .bg-glow-1 {
+            top: -20%; left: -10%;
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(197, 160, 89, 0.08) 0%, transparent 60%);
+            animation: float 20s infinite alternate ease-in-out;
+        }
+        .bg-glow-2 {
+            bottom: -20%; right: -10%;
+            width: 60vw; height: 60vw;
+            background: radial-gradient(circle, rgba(197, 160, 89, 0.05) 0%, transparent 60%);
+            animation: float 25s infinite alternate-reverse ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(5%, 10%) scale(1.1); }
+        }
+
+        /* ==========================================================================
+           Typography & Gradients
+           ========================================================================== */
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 400; }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #FFFFFF 0%, #C5A059 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 6vw, 5.5rem); 
+            line-height: 1.1;
+            margin-bottom: 24px; 
+            letter-spacing: -1px;
+        }
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 48px; 
+            color: var(--text-main);
+            display: inline-block;
+            position: relative;
+        }
+        /* Underline aksen emas untuk H2 */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 0;
+            width: 40px; height: 2px;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        h2:hover::after { width: 100%; }
+
+        p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            max-width: 800px;
+        }
+
+        /* ==========================================================================
+           Glassmorphism Cards
+           ========================================================================== */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 32px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(197, 160, 89, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 15px rgba(197, 160, 89, 0.1);
+        }
+
+        /* ==========================================================================
+           Scroll Reveal Animations
+           ========================================================================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Delay utility untuk elemen yang berjejer */
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* ==========================================================================
+           Components (Buttons)
+           ========================================================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 32px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: var(--accent-gold); transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: -1;
+        }
+        .btn:hover { color: var(--bg-color); border-color: var(--accent-gold); }
+        .btn:hover::before { left: 0; }
+
+        .btn-filled { background: var(--accent-gold); color: var(--bg-color); }
+        .btn-filled::before { background: var(--bg-color); }
+        .btn-filled:hover { color: var(--accent-gold); }
+
+        /* ==========================================================================
+           Hero Section
+           ========================================================================== */
+        .hero {
+            min-height: 100vh; 
+            display: flex;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .hero-content {
+            max-width: 900px;
+        }
+        .tagline {
+            font-family: var(--font-body);
+            color: var(--accent-gold);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: inline-block;
+            padding: 6px 16px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 30px;
+            background: rgba(197, 160, 89, 0.05);
+        }
+        .hero p { font-size: 1.15rem; line-height: 1.7; }
+        .hero-actions { margin-top: 48px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+
+        /* ==========================================================================
+           Grid Sections (About & Skills)
+           ========================================================================== */
+        .section-separator {
+            width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+        }
+        .grid-section { padding: var(--section-padding); }
+        
+        .about-content p {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            opacity: 0.95;
+            text-align: justify;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 56px;
+        }
+        .skill-group h4 {
+            font-family: var(--font-body); 
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .skill-list { list-style: none; }
+        .skill-list li {
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .skill-list li::before {
+            content: '▹';
+            color: var(--accent-gold);
+            font-size: 1rem;
+            margin-right: 12px;
+        }
+
+        /* ==========================================================================
+           Journey Section (Timeline)
+           ========================================================================== */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-left: 32px; 
+        }
+        .timeline::before {
+            content: ''; position: absolute; top: 0; bottom: 0; left: 5px; width: 2px;
+            background: linear-gradient(to bottom, rgba(197, 160, 89, 0.8) 0%, rgba(197, 160, 89, 0.1) 100%);
+            border-radius: 2px;
+        }
+        .timeline-item { position: relative; margin-bottom: 40px; } 
+        .timeline-item:last-child { margin-bottom: 0; }
+        
+        /* Glowing Nodes */
+        .timeline-item::before {
+            content: ''; position: absolute; left: -32px; top: 32px; width: 12px; height: 12px;
+            border-radius: 50%; background-color: var(--bg-color); border: 2px solid var(--accent-gold);
+            transition: all 0.4s ease;
+            box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1);
+        }
+        .timeline-item:hover::before { 
+            background-color: var(--accent-gold); 
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.6), 0 0 0 4px rgba(197, 160, 89, 0.2);
+        }
+
+        .timeline-content { padding: 24px 32px; } /* Glass-card padding overrides */
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 16px;
+        }
+
+        .timeline-content h4 {
+            font-family: var(--font-heading);
+            font-size: 1.4rem; 
+            color: var(--text-main);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            background: rgba(197, 160, 89, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .timeline-content .institution {
+            font-size: 0.95rem;
+            color: var(--text-muted); 
+            display: block;
+            font-weight: 500;
+            margin: 16px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Bullet Points for CV density */
+        .timeline-bullets {
+            list-style: none;
+            padding-left: 0;
+        }
+        .timeline-bullets li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+        .timeline-bullets li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           Contact Section
+           ========================================================================== */
+        .contact { text-align: center; padding: 100px 0; }
+        .contact-email {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: var(--text-main);
+            display: inline-block;
+            margin-bottom: 56px;
+            position: relative;
+        }
+        .contact-email::after {
+            content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+            width: 0; height: 2px; background-color: var(--accent-gold); transition: width 0.4s ease;
+        }
+        .contact-email:hover::after { width: 100%; }
+        
+        .contact-methods {
+            display: flex; justify-content: center; gap: 48px; margin-bottom: 40px; flex-wrap: wrap;
+        }
+        .contact-method {
+            display: flex; flex-direction: column; align-items: center; gap: 12px; color: var(--text-muted); font-size: 0.95rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .contact-method:hover { color: var(--accent-gold); transform: translateY(-5px); }
+        .contact-method svg { width: 28px; height: 28px; stroke: currentColor; stroke-width: 1.5; fill: none; }
+
+        footer {
+            text-align: center; padding: 40px 0; color: rgba(255,255,255,0.2);
+            font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05);
+            font-family: var(--font-body);
+        }
+
+        /* ==========================================================================
+           Responsive Design
+           ========================================================================== */
+        @media (max-width: 768px) {
+            :root { --section-padding: 80px 0; }
+            .glass-card { padding: 24px; }
+            .timeline-item::before { top: 24px; }
+            .timeline-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .hero-actions { flex-direction: column; align-items: stretch; gap: 16px; }
+            .btn { justify-content: center; text-align: center; }
+            .contact-methods { gap: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Background Glow -->
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content reveal">
+                    <span class="tagline">Infrastruktur Fisik &rarr; Rekayasa Logika</span>
+                    <h1 class="text-gradient">Saputra Dwi Sofyan</h1>
+                    <p>Mahasiswa Teknik Informatika dengan fondasi ekstrem di ranah operasional mekanik dan kelistrikan. Membawa ketelitian instalasi tingkat tinggi dan disiplin <em>problem-solving</em> lapangan ke dalam dunia pemrograman dan arsitektur jaringan yang elegan.</p>
+                    
+                    <div class="hero-actions">
+                        <a href="#journey" class="btn btn-filled">Eksplorasi Rekam Jejak</a>
+                        <a href="https://wa.me/6282189805695" class="btn" target="_blank" rel="noopener noreferrer">Hubungi Saya</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-separator"></div>
+
+        <!-- ABOUT & SKILLS SECTION -->
+        <section id="about" class="grid-section">
+            <div class="container">
+                <h2 class="reveal">Profil & Kompetensi</h2>
+                
+                <div class="about-content reveal delay-100" style="margin-bottom: 56px;">
+                    <p>Banyak pengembang perangkat lunak memulai karirnya di depan layar, namun saya memulainya dari tarikan kabel LAN, distribusi arus listrik, hingga perawatan mekanik di pabrik manufaktur. Latar belakang keras ini memberikan saya apa yang tidak dimiliki mayoritas mahasiswa IT: intuisi fisik tentang bagaimana data mengalir dan perangkat keras beroperasi secara *real-time*.</p>
+                    <p>Saat ini di bangku kuliah (kelas karyawan/malam), saya menerjemahkan intuisi struktural tersebut ke dalam bahasa pemrograman (Java/Python) dan topologi jaringan yang <em>scalable</em>. Ketangguhan di lapangan, kini saya aplikasikan ke dalam kode.</p>
+                </div>
+
+                <div class="skills-grid">
+                    <div class="skill-group glass-card reveal delay-100">
+                        <h4>Software & Code</h4>
+                        <ul class="skill-list">
+                            <li>Java (OOP, Data Structures)</li>
+                            <li>Python (Scripting, Automation)</li>
+                            <li>Web Development Fundamental</li>
+                            <li>Algoritma & Logika Komputasi</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-group glass-card reveal delay-200">
+                        <h4>Hardware & Network</h4>
+                        <ul class="skill-list">
+                            <li>Topologi Jaringan Komputer</li>
+                            <li>Instalasi Kabel LAN (Enterprise)</li>
+                            <li>Instalasi Tenaga Listrik Dasar</li>
+                            <li>Troubleshooting Hardware Fisik</li>
+                        </ul>
+                    </div>
+
+                    <div class="skill-group glass-card reveal delay-300">
+                        <h4>Manajerial Eksekusi</h4>
+                        <ul class="skill-list">
+                            <li>Kepemimpinan & Koordinasi On-Site</li>
+                            <li>Keamanan & Disiplin (Gada Pratama)</li>
+                            <li>Analisis Root-Cause Masalah</li>
+                            <li>Manajemen Waktu Profesional</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-separator"></div>
+
+        <!-- JOURNEY SECTION (TIMELINE) -->
+        <section id="journey" class="grid-section">
+            <div class="container">
+                <h2 class="reveal">Rekam Jejak & Edukasi</h2>
+                
+                <div class="timeline">
+                    
+                    <!-- Kuliah (Newest) -->
+                    <div class="timeline-item reveal delay-100">
+                        <div class="timeline-content glass-card">
+                            <div class="timeline-header">
+                                <h4>Mahasiswa Teknik Informatika (S1)</h4>
+                                <span class="timeline-date">2024 — Sekarang</span>
+                            </div>
+                            <span class="institution">Universitas Bina Insani — Kelas Karyawan (Malam)</span>
+                            <ul class="timeline-bullets">
+                                <li>Mendalami arsitektur perangkat lunak, struktur data tingkat lanjut, dan pemrograman berorientasi objek secara intensif.</li>
+                                <li>Melakukan simulasi perancangan topologi jaringan komputer menggunakan standar industri terkini.</li>
+                                <li>Konsisten menjaga performa akademik yang optimal sembari memegang tanggung jawab profesional penuh waktu di siang hari.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- PIC Lapangan -->
+                    <div class="timeline-item reveal delay-100">
+                        <div class="timeline-content glass-card">
+                            <div class="timeline-header">
+                                <h4>PIC Operasional Lapangan</h4>
+                                <span class="timeline-date">2023 — 2024</span>
+                            </div>
+                            <span class="institution">PT Abirama Mitra Pratama</span>
+                            <ul class="timeline-bullets">
+                                <li>Memegang kendali penuh atas koordinasi tim operasional harian untuk memastikan eksekusi proyek tepat waktu.</li>
+                                <li>Bertindak sebagai eksekutor pertama dalam menganalisis dan menyelesaikan kendala teknis krusial di lokasi (*on-site troubleshooting*).</li>
+                                <li>Menetapkan standar kedisiplinan kerja yang tinggi dan memastikan pelaporan berjalan transparan.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Pelatihan Gada Pratama -->
+                    <div class="timeline-item reveal delay-100">
+                        <div class="timeline-content glass-card">
+                            <div class="timeline-header">
+                                <h4>Sertifikasi Gada Pratama</h4>
+                                <span class="timeline-date">2022</span>
+                            </div>
+                            <span class="institution">Sigap Academy</span>
+                            <ul class="timeline-bullets">
+                                <li>Ditempa melalui pendidikan dasar keamanan dengan kurikulum ketat berfokus pada manajemen risiko.</li>
+                                <li>Menguasai teknik observasi detail, pengendalian stres di bawah tekanan, dan prosedur respon darurat (*quick response*).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Magang -->
+                    <div class="timeline-item reveal delay-100">
+                        <div class="timeline-content glass-card">
+                            <div class="timeline-header">
+                                <h4>Asisten Mekanik Industri (Magang)</h4>
+                                <span class="timeline-date">2021</span>
+                            </div>
+                            <span class="institution">PT Presisi Metalindo Ekatama</span>
+                            <ul class="timeline-bullets">
+                                <li>Terlibat langsung dalam siklus perawatan preventif untuk mesin-mesin manufaktur skala besar.</li>
+                                <li>Membantu proses kalibrasi ketat dan memastikan operasional alat berat berjalan presisi sesuai SOP keselamatan.</li>
+                                <li>Mengasah insting mekanis dengan berpartisipasi dalam analisis pemecahan masalah (*root-cause*) pada sistem fisik.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- SMK (Oldest) -->
+                    <div class="timeline-item reveal delay-100">
+                        <div class="timeline-content glass-card">
+                            <div class="timeline-header">
+                                <h4>Teknik Instalasi Tenaga Listrik</h4>
+                                <span class="timeline-date">2019 — 2022</span>
+                            </div>
+                            <span class="institution">SMK Bina Karya Mandiri</span>
+                            <ul class="timeline-bullets">
+                                <li>Mempelajari logika dasar sirkuit, distribusi beban, dan instalasi kelistrikan dari nol hingga menengah.</li>
+                                <li>Membangun fondasi pemahaman tegangan dan arus yang kini terbukti sangat krusial dalam memahami infrastruktur hardware dan jaringan IT tingkat lanjut.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="contact">
+            <div class="container reveal">
+                <h2>Mari Berdiskusi</h2>
+                <br>
+                <a href="mailto:putradwi2808@gmail.com" class="contact-email">putradwi2808@gmail.com</a>
+                
+                <div class="contact-methods">
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/6282189805695" target="_blank" rel="noopener noreferrer" class="contact-method">
+                        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        <span>WhatsApp</span>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/temonindong" target="_blank" rel="noopener noreferrer" class="contact-method">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                        <span>Instagram</span>
+                    </a>
+                    
+                    <!-- GitHub -->
+                    <a href="https://github.com/TemonsHallal" target="_blank" rel="noopener noreferrer" class="contact-method">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path></svg>
+                        <span>GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Saputra Dwi Sofyan. Dari Infrastruktur Fisik menuju Rekayasa Logika.</p>
+        </div>
+    </footer>
+
+    <!-- Script for Scroll Reveal Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Hanya animasi sekali saat muncul
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
