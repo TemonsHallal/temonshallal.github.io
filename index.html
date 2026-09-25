@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portfolio Saputra Dwi Sofyan - Dari infrastruktur fisik dan mekanik menuju dunia IT, pemrograman, dan jaringan komputer.">
     <title>Saputra Dwi Sofyan | IT & Infrastruktur</title>
+
+        <!-- Open Graph / Social Share Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Saputra Dwi Sofyan | IT & Infrastruktur">
+    <meta property="og:description" content="Dari infrastruktur fisik dan mekanik menuju dunia IT, pemrograman, dan jaringan komputer.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/TemonsHallal/temonshallal.github.io/main/preview.jpg.jpeg">
+    <meta property="og:url" content="https://temonshallal.github.io">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Saputra Dwi Sofyan | IT & Infrastruktur">
+    <meta name="twitter:description" content="Dari infrastruktur fisik dan mekanik menuju dunia IT, pemrograman, dan jaringan komputer.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/TemonsHallal/temonshallal.github.io/main/preview.jpg.jpeg">
     
     <!-- Google Fonts: Playfair Display & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -191,11 +202,106 @@
         /* ==========================================================================
            Hero Section
            ========================================================================== */
+                /* ==========================================================================
+           Sticky Navbar
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(3, 3, 3, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(3, 3, 3, 0.85);
+            border-bottom-color: rgba(197, 160, 89, 0.15);
+        }
+        .navbar-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-logo {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            color: var(--text-main);
+        }
+        .navbar-logo span { color: var(--accent-gold); }
+        .navbar-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+        .navbar-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            position: relative;
+            padding-bottom: 4px;
+        }
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        .navbar-links a:hover { color: var(--accent-gold); }
+        .navbar-links a:hover::after { width: 100%; }
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .navbar-toggle span {
+            width: 22px; height: 2px;
+            background-color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+        @media (max-width: 768px) {
+            .navbar-links {
+                position: fixed;
+                top: 62px; left: 0; right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(3, 3, 3, 0.97);
+                backdrop-filter: blur(16px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s ease;
+            }
+            .navbar-links.open { max-height: 300px; }
+            .navbar-links a {
+                padding: 18px 24px;
+                width: 100%;
+                display: block;
+            }
+            .navbar-toggle { display: flex; }
+        }
+
+        /* ==========================================================================
+           Hero Section
+           ========================================================================== */
         .hero {
             min-height: 100vh; 
             display: flex;
             align-items: center;
-            padding-top: 20px;
+            padding-top: 80px;
         }
         .hero-content {
             max-width: 900px;
@@ -408,6 +514,20 @@
     <div class="bg-glow-1"></div>
     <div class="bg-glow-2"></div>
 
+    <!-- Sticky Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-inner">
+            <a href="#" class="navbar-logo">Saputra<span>.</span></a>
+            <ul class="navbar-links" id="navbarLinks">
+                <li><a href="#about">Profil</a></li>
+                <li><a href="#journey">Rekam Jejak</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <button class="navbar-toggle" id="navbarToggle" aria-label="Buka menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
     <main>
         <!-- HERO SECTION -->
         <section class="hero">
@@ -485,7 +605,7 @@
                         <div class="timeline-content glass-card">
                             <div class="timeline-header">
                                 <h4>Mahasiswa Teknik Informatika (S1)</h4>
-                                <span class="timeline-date">2024 — Sekarang</span>
+                                <span class="timeline-date">2025 — Sekarang</span>
                             </div>
                             <span class="institution">Universitas Bina Insani — Kelas Karyawan (Malam)</span>
                             <ul class="timeline-bullets">
@@ -501,7 +621,7 @@
                         <div class="timeline-content glass-card">
                             <div class="timeline-header">
                                 <h4>PIC Operasional Lapangan</h4>
-                                <span class="timeline-date">2023 — 2024</span>
+                                <span class="timeline-date">2024 — 2025</span>
                             </div>
                             <span class="institution">PT Abirama Mitra Pratama</span>
                             <ul class="timeline-bullets">
@@ -517,7 +637,7 @@
                         <div class="timeline-content glass-card">
                             <div class="timeline-header">
                                 <h4>Sertifikasi Gada Pratama</h4>
-                                <span class="timeline-date">2022</span>
+                                <span class="timeline-date">2024</span>
                             </div>
                             <span class="institution">Sigap Academy</span>
                             <ul class="timeline-bullets">
@@ -532,7 +652,7 @@
                         <div class="timeline-content glass-card">
                             <div class="timeline-header">
                                 <h4>Asisten Mekanik Industri (Magang)</h4>
-                                <span class="timeline-date">2021</span>
+                                <span class="timeline-date">2023</span>
                             </div>
                             <span class="institution">PT Presisi Metalindo Ekatama</span>
                             <ul class="timeline-bullets">
@@ -548,7 +668,7 @@
                         <div class="timeline-content glass-card">
                             <div class="timeline-header">
                                 <h4>Teknik Instalasi Tenaga Listrik</h4>
-                                <span class="timeline-date">2019 — 2022</span>
+                                <span class="timeline-date">2020 — 2023</span>
                             </div>
                             <span class="institution">SMK Bina Karya Mandiri</span>
                             <ul class="timeline-bullets">
@@ -618,6 +738,27 @@
 
             document.querySelectorAll('.reveal').forEach(el => {
                 observer.observe(el);
+            });
+             // Navbar: ganti background pas di-scroll
+            const navbar = document.getElementById('navbar');
+            const toggleNavbarBg = () => {
+                if (window.scrollY > 40) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            };
+            toggleNavbarBg();
+            window.addEventListener('scroll', toggleNavbarBg);
+
+            // Navbar: toggle menu mobile
+            const navbarToggle = document.getElementById('navbarToggle');
+            const navbarLinks = document.getElementById('navbarLinks');
+            navbarToggle.addEventListener('click', () => {
+                navbarLinks.classList.toggle('open');
+            });
+            navbarLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => navbarLinks.classList.remove('open'));
             });
         });
     </script>
